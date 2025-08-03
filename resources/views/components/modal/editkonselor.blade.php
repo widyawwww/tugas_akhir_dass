@@ -43,30 +43,9 @@
                 </div>
 
                 <div>
-                    <label class="block mb-1 text-sm font-medium text-gray-700">Tanggal Lahir</label>
-                    <input type="date" name="tanggal_lahir" class="w-full border rounded-lg px-3 py-2"
-                        value="{{ $konselor->tanggal_lahir }}">
-                </div>
-
-                <div>
-                    <label class="block mb-1 text-sm font-medium text-gray-700">Jenis Kelamin</label>
-                    <select name="jenis_kelamin" class="w-full border rounded-lg px-3 py-2">
-                        <option value="">Pilih</option>
-                        <option value="L" {{ $konselor->jenis_kelamin == 'L' ? 'selected' : '' }}>Laki-laki</option>
-                        <option value="P" {{ $konselor->jenis_kelamin == 'P' ? 'selected' : '' }}>Perempuan</option>
-                    </select>
-                </div>
-
-                <div>
                     <label class="block mb-1 text-sm font-medium text-gray-700">Spesialisasi</label>
                     <input type="text" name="spesialisasi" class="w-full border rounded-lg px-3 py-2"
                         value="{{ $konselor->spesialisasi }}">
-                </div>
-
-                <div>
-                    <label class="block mb-1 text-sm font-medium text-gray-700">Nomor Lisensi</label>
-                    <input type="text" name="nomor_lisensi" class="w-full border rounded-lg px-3 py-2"
-                        value="{{ $konselor->nomor_lisensi }}">
                 </div>
 
                 <div>

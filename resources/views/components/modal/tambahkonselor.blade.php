@@ -40,27 +40,8 @@
                 </div>
 
                 <div>
-                    <label class="block mb-1 text-sm font-medium text-gray-700">Tanggal Lahir</label>
-                    <input type="date" name="tanggal_lahir" class="w-full border rounded-lg px-3 py-2">
-                </div>
-
-                <div>
-                    <label class="block mb-1 text-sm font-medium text-gray-700">Jenis Kelamin</label>
-                    <select name="jenis_kelamin" class="w-full border rounded-lg px-3 py-2">
-                        <option value="">Pilih</option>
-                        <option value="L">Laki-laki</option>
-                        <option value="P">Perempuan</option>
-                    </select>
-                </div>
-
-                <div>
                     <label class="block mb-1 text-sm font-medium text-gray-700">Spesialisasi</label>
                     <input type="text" name="spesialisasi" class="w-full border rounded-lg px-3 py-2">
-                </div>
-
-                <div>
-                    <label class="block mb-1 text-sm font-medium text-gray-700">Nomor Lisensi</label>
-                    <input type="text" name="nomor_lisensi" class="w-full border rounded-lg px-3 py-2">
                 </div>
 
                 <div>

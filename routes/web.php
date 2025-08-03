@@ -12,6 +12,7 @@ use App\Http\Controllers\WEB\Admin\InstrumenTesController;
 
 use App\Http\Controllers\WEB\Admin\DaftarPenggunaController;
 use App\Http\Controllers\WEB\Admin\JadwalKonselorController;
+use App\Http\Controllers\WEB\Admin\InformasiKlinikController;
 use App\Http\Controllers\WEB\Admin\JadwalPsikiaterController;
 use App\Http\Controllers\WEB\Admin\PemesananKonselorController;
 use App\Http\Controllers\WEB\Admin\PemesananPsikiaterController;
@@ -52,6 +53,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth.admin')->group(function
     // Tips
     Route::resource('tips', TipsController::class);
 
+    // Informasi Klinik
+    Route::get('/informasi-klinik', [InformasiKlinikController::class, 'index'])->name('informasi.index');
+    Route::post('/informasi-klinik', [InformasiKlinikController::class, 'store'])->name('informasi.store');
+    Route::put('/informasi-klinik/{id}', [InformasiKlinikController::class, 'update'])->name('informasi.update');
+
     // Atur Jam Konsultasi
     Route::get('/atur-jam', [AturJamController::class, 'index'])->name('atur-jam.index');
     Route::post('/atur-jam', [AturJamController::class, 'store'])->name('atur-jam.store');
@@ -68,11 +74,15 @@ Route::prefix('admin')->name('admin.')->middleware('auth.admin')->group(function
     Route::resource('jadwal-psikiater', JadwalPsikiaterController::class)->only([
         'index', 'store', 'update', 'destroy'
     ]);
+    Route::get('/jadwal-psikiater/generate', [JadwalPsikiaterController::class, 'generateJadwalMingguan'])
+    ->name('jadwal-psikiater.generate');
 
     // Instrumen Tes Psikologi
     Route::get('/instrumen-tes', [InstrumenTesController::class, 'index'])->name('instrumen-tes.index');
     Route::post('/instrumen-tes', [InstrumenTesController::class, 'store'])->name('instrumen-tes.store');
     Route::delete('/instrumen-tes/{id}', [InstrumenTesController::class, 'destroy'])->name('instrumen-tes.destroy');
+    Route::get('/instrumen-tes/{id}/edit', [InstrumenTesController::class, 'edit'])->name('instrumen-tes.edit');
+    Route::put('/instrumen-tes/{id}', [InstrumenTesController::class, 'update'])->name('instrumen-tes.update'); 
 
     // Pertanyaan
     Route::get('/instrumen-tes/{id}/pertanyaan', [InstrumenTesController::class, 'lihatPertanyaan'])->name('instrumen-tes.pertanyaan');
@@ -94,11 +104,23 @@ Route::prefix('admin')->name('admin.')->middleware('auth.admin')->group(function
     Route::put('/instrumen-tes/subskala/update/{id}', [InstrumenTesController::class, 'updateSubskala'])->name('instrumen-tes.subskala.update');
     Route::delete('/instrumen-tes/subskala/{id}', [InstrumenTesController::class, 'destroySubskala'])->name('instrumen-tes.subskala.destroy');
 
+    // Artikel (instrumen tes)
+    Route::get('instrumen-tes/{id}/artikel', [InstrumenTesController::class, 'artikel'])->name('instrumen-tes.artikel');
+    Route::put('instrumen-tes/{id}/artikel', [InstrumenTesController::class, 'updateArtikel'])->name('instrumen-tes.update-artikel');
+
+    // Tips (instrumen tes)
+    Route::get('instrumen-tes/{id}/tips', [InstrumenTesController::class, 'tips'])->name('instrumen-tes.tips');
+    Route::put('instrumen-tes/{id}/tips', [InstrumenTesController::class, 'updateTips'])->name('instrumen-tes.update-tips');
+
     // Pemesanan Konselor
     Route::get('admin/pemesanan-konselor', [PemesananKonselorController::class, 'index'])->name('pemesanan-konselor.index');
+    Route::patch('admin/pemesanan-konselor/{id}/status', [PemesananKonselorController::class, 'updateStatus'])->name('pemesanan-konselor.updateStatus');
+
 
     // Pemesanan Psikiater
     Route::get('/pemesanan-psikiater', [PemesananPsikiaterController::class, 'index'])->name('pemesanan-psikiater.index');
+    Route::patch('/pemesanan-psikiater/{id}/status', [PemesananPsikiaterController::class, 'updateStatus'])->name('pemesanan-psikiater.updateStatus');
+
 
     // Daftar Pengguna berdasarkan role
     Route::get('pengguna/admin', [DaftarPenggunaController::class, 'admin'])->name('daftar-pengguna.admin');
@@ -120,5 +142,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth.admin')->group(function
     Route::post('pengguna/pengguna', [DaftarPenggunaController::class, 'storePengguna'])->name('users.pengguna.store');
     Route::put('pengguna/pengguna/{id}', [DaftarPenggunaController::class, 'updatePengguna'])->name('users.pengguna.update');
     Route::delete('pengguna/pengguna/{id}', [DaftarPenggunaController::class, 'destroyPengguna'])->name('users.pengguna.destroy');
+    
 
 });

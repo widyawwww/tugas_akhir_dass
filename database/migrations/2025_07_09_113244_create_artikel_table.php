@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('gambar')->nullable();
+            $table->string('gambar_url')->nullable();
             $table->string('deskripsi_singkat');
             $table->text('deskripsi');
             $table->timestamps();

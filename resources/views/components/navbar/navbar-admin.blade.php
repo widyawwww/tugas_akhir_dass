@@ -142,6 +142,13 @@
                     <span class="flex-1 ms-3 whitespace-nowrap">Tips Kesehatan Mental</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin.informasi.index') }}"
+                    class="flex items-center p-2 rounded-lg hover:bg-blue-200 hover:text-white {{ request()->routeIs('admin.informasi-klinik.index') ? 'bg-blue-500 text-white' : '' }}">
+                    <i class="fas fa-book-open me-2"></i>
+                    <span class="flex-1 ms-3 whitespace-nowrap">Informasi Klinik</span>
+                </a>
+            </li>
             {{-- <li><a href="#" class="flex items-center p-2 rounded-lg hover:bg-blue-200"><i class="fa-solid fa-question-circle me-2"></i><span class="ms-3">Konseling</span></a></li> --}}
             <li>
                 <a href="{{ route('admin.instrumen-tes.index') }}"

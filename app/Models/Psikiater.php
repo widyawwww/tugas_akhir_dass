@@ -12,9 +12,15 @@ class Psikiater extends Model
         'nama_lengkap',
         'email',
         'gambar',
+        'gambar_url',
         'spesialisasi',
-        'nomor_lisensi',
+        'sipp',
         'biaya_layanan',
         'lokasi_pelayanan',
     ];
+
+    public function slotKonsultasi()
+    {
+        return $this->hasMany(SlotKonsultasiPsikiater::class, 'psikiater_id');
+    }
 }

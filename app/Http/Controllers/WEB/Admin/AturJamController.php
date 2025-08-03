@@ -8,21 +8,32 @@ use App\Http\Controllers\Controller;
 
 class AturJamController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $jam = Jam::orderBy('jam_mulai')->get();
+        $query = Jam::query();
+
+        // Filter berdasarkan hari jika ada
+        if ($request->filled('filter_hari')) {
+            $query->where('hari', $request->filter_hari);
+        }
+
+        // Ambil data dengan pagination
+        $jam = $query->orderBy('hari')->paginate(10); // 10 per halaman
+
         return view('pages.admin.atur-jam.index', compact('jam'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'jam_mulai' => 'required',
+            'hari'        => 'required|string',
+            'jam_mulai'   => 'required',
             'jam_selesai' => 'required|after:jam_mulai',
         ]);
 
         Jam::create([
-            'jam_mulai' => $request->jam_mulai,
+            'hari'        => $request->hari,
+            'jam_mulai'   => $request->jam_mulai,
             'jam_selesai' => $request->jam_selesai,
         ]);
 
@@ -32,13 +43,15 @@ class AturJamController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'jam_mulai' => 'required',
-            'jam_selesai' => 'required',
+            'hari'        => 'required|string',
+            'jam_mulai'   => 'required',
+            'jam_selesai' => 'required|after:jam_mulai',
         ]);
 
         $jam = Jam::findOrFail($id);
         $jam->update([
-            'jam_mulai' => $request->jam_mulai,
+            'hari'        => $request->hari,
+            'jam_mulai'   => $request->jam_mulai,
             'jam_selesai' => $request->jam_selesai,
         ]);
 

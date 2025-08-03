@@ -1,6 +1,7 @@
 @extends('pages.admin.index')
 
 @section('content')
+<link rel="stylesheet" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
 <main class="p-4 sm:ml-64 mt-14">
 
     {{-- Notifikasi --}}
@@ -85,4 +86,5 @@
         {{ $artikels->links('vendor.pagination.simple-tailwind') }}
     </div>
 </main>
+<script src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 @endsection

@@ -39,7 +39,7 @@ return [
         // Guard untuk konselor (mobile via token)
         'konselor-api' => [
             'driver' => 'sanctum',
-            'provider' => 'konselors',
+            'provider' => 'konselors', // Nama provider yang akan kita buat di bawah
         ],
     ],
 

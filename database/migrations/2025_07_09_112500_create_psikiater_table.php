@@ -14,12 +14,10 @@ return new class extends Migration
         Schema::create('psikiater', function (Blueprint $table) {
             $table->id();
             $table->string('nama_lengkap')->nullable();
-            $table->string('email')->unique()->nullable();
             $table->string('gambar')->nullable();
-            $table->date('tanggal_lahir')->nullable();
-            $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
+            $table->string('gambar_url')->nullable();
             $table->string('spesialisasi')->nullable();
-            $table->string('nomor_lisensi')->nullable();
+            $table->string('sipp')->nullable();
             $table->decimal('biaya_layanan', 15, 2)->nullable();
             $table->string('lokasi_pelayanan')->nullable();
             $table->timestamps();

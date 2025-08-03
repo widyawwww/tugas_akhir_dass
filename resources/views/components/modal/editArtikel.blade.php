@@ -15,10 +15,6 @@
                     <textarea name="deskripsi_singkat" class="w-full border rounded px-3 py-2">{{ $artikel->deskripsi_singkat }}</textarea>
                 </div>
                 <div>
-                    <label>Deskripsi Lengkap</label>
-                    <textarea name="deskripsi" class="w-full border rounded px-3 py-2">{{ $artikel->deskripsi }}</textarea>
-                </div>
-                <div>
                     <label>Gambar (opsional)</label>
                     @if ($artikel->gambar)
                         <img src="{{ asset('storage/' . $artikel->gambar) }}" class="w-20 h-20 rounded object-cover mb-2">

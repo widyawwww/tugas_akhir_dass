@@ -54,10 +54,7 @@
                             <th class="px-6 py-3">Username</th>
                             <th class="px-6 py-3">Email</th>
                             <th class="px-6 py-3">Gambar</th>
-                            <th class="px-6 py-3">Tanggal Lahir</th>
-                            <th class="px-6 py-3">Jenis Kelamin</th>
                             <th class="px-6 py-3">Spesialisasi</th>
-                            <th class="px-6 py-3">Lisensi</th>
                             <th class="px-6 py-3">Aksi</th>
                         </tr>
                     </thead>
@@ -76,10 +73,7 @@
                                         <span class="text-gray-400 italic">Tidak ada</span>
                                     @endif
                                 </td>
-                                <td class="px-6 py-4">{{ $konselor->tanggal_lahir ?? '-' }}</td>
-                                <td class="px-6 py-4">{{ $konselor->jenis_kelamin ?? '-' }}</td>
                                 <td class="px-6 py-4">{{ $konselor->spesialisasi }}</td>
-                                <td class="px-6 py-4">{{ $konselor->nomor_lisensi }}</td>
                                 <td class="px-6 py-4 flex gap-2">
                                     {{-- Tombol Edit --}}
                                     <button data-modal-toggle="edit-{{ $konselor->id }}" data-modal-target="edit-{{ $konselor->id }}"

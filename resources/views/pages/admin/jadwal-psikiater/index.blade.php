@@ -6,10 +6,16 @@
         <!-- Header dan tombol tambah -->
         <div class="p-4 bg-white rounded-lg shadow-lg flex justify-between items-center">
             <p class="text-lg font-semibold">Jadwal Konsultasi Psikiater</p>
-            <a href="#" class="bg-blue-500 rounded-lg px-2 py-1 text-white hover:bg-blue-600 text-sm"
-               data-modal-target="modalTambahJadwalPsikiater" data-modal-toggle="modalTambahJadwalPsikiater">
-                <i class="fa-solid fa-plus"></i> Tambah Jadwal
-            </a>
+            <div class="flex space-x-2">
+                <a href="{{ route('admin.jadwal-psikiater.generate') }}"
+                   class="bg-green-600 text-white px-3 py-1.5 rounded-lg hover:bg-green-700 text-sm">
+                    <i class="fa-solid fa-rotate"></i> Generate Otomatis 1 Minggu
+                </a>
+                <a href="#" class="bg-blue-500 rounded-lg px-2 py-1 text-white hover:bg-blue-600 text-sm"
+                   data-modal-target="modalTambahJadwalPsikiater" data-modal-toggle="modalTambahJadwalPsikiater">
+                    <i class="fa-solid fa-plus"></i> Tambah Jadwal
+                </a>
+            </div>
         </div>
 
         <!-- Tabel Jadwal -->

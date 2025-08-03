@@ -49,9 +49,8 @@
                     <form method="POST" action="{{ route('admin.users.psikiater.store') }}" enctype="multipart/form-data" class="space-y-4">
                         @csrf
                         <input type="text" name="nama_lengkap" class="w-full border px-3 py-2 rounded" placeholder="Nama Lengkap" required>
-                        <input type="email" name="email" class="w-full border px-3 py-2 rounded" placeholder="Email">
                         <input type="text" name="spesialisasi" class="w-full border px-3 py-2 rounded" placeholder="Spesialisasi">
-                        <input type="text" name="nomor_lisensi" class="w-full border px-3 py-2 rounded" placeholder="Nomor Lisensi">
+                        <input type="text" name="sipp" class="w-full border px-3 py-2 rounded" placeholder="SIPP">
                         <input type="number" name="biaya_layanan" class="w-full border px-3 py-2 rounded" placeholder="Biaya Layanan">
                         <input type="text" name="lokasi_pelayanan" class="w-full border px-3 py-2 rounded" placeholder="Lokasi Pelayanan">
                         <input type="file" name="gambar" class="w-full border px-3 py-2 rounded">
@@ -71,10 +70,9 @@
                         <tr>
                             <th class="px-6 py-3">No</th>
                             <th class="px-6 py-3">Nama</th>
-                            <th class="px-6 py-3">Email</th>
                             <th class="px-6 py-3">Gambar</th>
                             <th class="px-6 py-3">Spesialisasi</th>
-                            <th class="px-6 py-3">Lisensi</th>
+                            <th class="px-6 py-3">SIPP</th>
                             <th class="px-6 py-3">Biaya</th>
                             <th class="px-6 py-3">Lokasi</th>
                             <th class="px-6 py-3">Aksi</th>
@@ -85,7 +83,6 @@
                             <tr class="bg-white border-b hover:bg-gray-50">
                                 <td class="px-6 py-4">{{ $loop->iteration }}</td>
                                 <td class="px-6 py-4">{{ $psikiater->nama_lengkap }}</td>
-                                <td class="px-6 py-4">{{ $psikiater->email }}</td>
                                 <td class="px-6 py-4">
                                     @if ($psikiater->gambar)
                                         <img src="{{ asset('storage/' . $psikiater->gambar) }}" alt="Foto" class="w-10 h-10 rounded-full object-cover">
@@ -94,7 +91,7 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4">{{ $psikiater->spesialisasi }}</td>
-                                <td class="px-6 py-4">{{ $psikiater->nomor_lisensi }}</td>
+                                <td class="px-6 py-4">{{ $psikiater->sipp }}</td>
                                 <td class="px-6 py-4">Rp{{ number_format($psikiater->biaya_layanan, 0, ',', '.') }}</td>
                                 <td class="px-6 py-4">{{ $psikiater->lokasi_pelayanan }}</td>
                                 <td class="px-6 py-4 flex gap-2">
@@ -111,9 +108,8 @@
                                                 @csrf
                                                 @method('PUT')
                                                 <input type="text" name="nama_lengkap" value="{{ $psikiater->nama_lengkap }}" class="w-full border px-3 py-2 rounded">
-                                                <input type="email" name="email" value="{{ $psikiater->email }}" class="w-full border px-3 py-2 rounded">
                                                 <input type="text" name="spesialisasi" value="{{ $psikiater->spesialisasi }}" class="w-full border px-3 py-2 rounded">
-                                                <input type="text" name="nomor_lisensi" value="{{ $psikiater->nomor_lisensi }}" class="w-full border px-3 py-2 rounded">
+                                                <input type="text" name="nomor_lisensi" value="{{ $psikiater->sipp }}" class="w-full border px-3 py-2 rounded">
                                                 <input type="number" name="biaya_layanan" value="{{ $psikiater->biaya_layanan }}" class="w-full border px-3 py-2 rounded">
                                                 <input type="text" name="lokasi_pelayanan" value="{{ $psikiater->lokasi_pelayanan }}" class="w-full border px-3 py-2 rounded">
                                                 <input type="file" name="gambar" class="w-full border px-3 py-2 rounded">

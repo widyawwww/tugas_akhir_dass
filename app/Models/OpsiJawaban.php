@@ -9,10 +9,9 @@ class OpsiJawaban extends Model
     protected $table = 'opsi_jawaban';
     protected $fillable = ['instrumen_tes_id', 'teks_opsi', 'skor'];
 
-    public function instrumen()
+
+    public function instrumenTes()
     {
-        return $this->belongsTo(\App\Models\InstrumenTes::class);
+        return $this->belongsTo(InstrumenTes::class, 'instrumen_tes_id');
     }
-
 }
-

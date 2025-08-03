@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('pembuat'); // Contoh: Lovibond & Lovibond
             $table->year('tahun');
             $table->text('deskripsi')->nullable(); // deskripsi instrumen
+            $table->string('gambar_url')->nullable();
             $table->timestamps();
         });
     }

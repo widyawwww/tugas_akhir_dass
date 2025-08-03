@@ -28,4 +28,8 @@ class SlotKonsultasiKonselor extends Model
         return $this->hasMany(\App\Models\SlotKonsultasiKonselorJam::class, 'slot_konsultasi_konselor_id');
     }
 
+    public function jamSlots()
+    {
+        return $this->hasMany(SlotKonsultasiKonselorJam::class, 'slot_konsultasi_konselor_id');
+    }
 }

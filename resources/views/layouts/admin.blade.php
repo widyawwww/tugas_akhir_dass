@@ -27,5 +27,6 @@
     <script src="https://cdn.quilljs.com/1.3.7/quill.js"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     @stack('scripts')
+    @yield('scripts')
 </body>
 </html>

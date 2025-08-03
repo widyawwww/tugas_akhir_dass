@@ -42,8 +42,25 @@
                         class="bg-orange-500 py-1 px-2 rounded-lg text-white text-sm flex items-center gap-1 hover:bg-orange-600">
                         <i class="fa-solid fa-layer-group"></i> Subskala
                     </a>
+                    <a href="{{ route('admin.instrumen-tes.artikel', $instrumen->id) }}"
+                        class="bg-orange-500 py-1 px-2 rounded-lg text-white text-sm flex items-center gap-1 hover:bg-orange-600">
+                        <i class="fa-solid fa-newspaper"></i> Artikel
+                    </a>
+                    <a href="{{ route('admin.instrumen-tes.tips', $instrumen->id) }}"
+                        class="bg-orange-500 py-1 px-2 rounded-lg text-white text-sm flex items-center gap-1 hover:bg-orange-600">
+                        <i class="fa-solid fa-lightbulb"></i> Tips
+                    </a>
+                    <button type="button"
+                        class="bg-yellow-500 py-1 px-2 rounded-lg text-white text-sm flex items-center gap-1 hover:bg-yellow-600"
+                        data-modal-target="modalEditInstrumen"
+                        data-id="{{ $instrumen->id }}"
+                        data-nama="{{ $instrumen->nama }}"
+                        data-deskripsi="{{ $instrumen->deskripsi }}"
+                        data-tahun="{{ $instrumen->tahun }}">
+                        <i class="fa-solid fa-pen-to-square"></i> Edit
+                    </button>
                     <form action="{{ route('admin.instrumen-tes.destroy', $instrumen->id) }}" method="POST"
-                          onsubmit="return confirm('Yakin ingin menghapus instrumen ini?')">
+                        onsubmit="return confirm('Yakin ingin menghapus instrumen ini?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit"
@@ -93,5 +110,102 @@
             </form>
         </div>
     </div>
+
+    {{-- Modal Edit Instrumen --}}
+    <div id="modalEditInstrumen" tabindex="-1"
+        class="hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full p-4 overflow-y-auto h-full bg-black bg-opacity-50">
+        <div class="relative w-full max-w-md bg-white rounded-lg shadow">
+            <form method="POST" id="formEditInstrumen" enctype="multipart/form-data" class="p-4">
+                @csrf
+                @method('PUT')
+                <h3 class="text-lg font-semibold mb-4">Edit Instrumen</h3>
+
+                <div class="mb-3">
+                    <label class="block text-sm font-medium mb-1">Nama Instrumen</label>
+                    <input type="text" name="nama" id="edit_nama" class="w-full border p-2 rounded" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="block text-sm font-medium mb-1">Tahun</label>
+                    <input type="number" name="tahun" id="edit_tahun" class="w-full border p-2 rounded" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="block text-sm font-medium mb-1">Deskripsi</label>
+                    <textarea name="deskripsi" id="edit_deskripsi" class="w-full border p-2 rounded" rows="4"></textarea>
+                </div>
+
+{{-- Gambar --}}
+<div class="mb-3">
+    <label class="block text-sm font-medium mb-1">Gambar Lama</label>
+
+    @if ($instrumen->gambar)
+        <img src="{{ asset('storage/' . $instrumen->gambar) }}" 
+             class="w-full rounded h-32 object-cover mb-2" 
+             alt="Gambar Lama">
+    @else
+        <p class="text-sm text-gray-500">Tidak ada gambar</p>
+    @endif
+</div>
+
+{{-- Input Gambar Baru --}}
+<div class="mb-3">
+    <label class="block text-sm font-medium mb-1">Gambar Baru (opsional)</label>
+    <input type="file" name="gambar" 
+           class="w-full border p-2 rounded" 
+           accept="image/*" onchange="previewEditGambar(event)">
+    
+    {{-- Preview Gambar Baru --}}
+    <img id="edit_gambar_preview" 
+         src="#" 
+         class="w-full mt-2 rounded h-32 object-cover hidden" 
+         alt="Preview Gambar">
+</div>
+
+
+                <div class="flex justify-end gap-2">
+                    <button type="button" onclick="closeEditModal()" class="bg-gray-400 text-white px-4 py-2 rounded">Batal</button>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </main>
+
+{{-- Script Modal Edit --}}
+<script>
+    const editButtons = document.querySelectorAll('[data-modal-target="modalEditInstrumen"]');
+    const modalEdit = document.getElementById('modalEditInstrumen');
+    const formEdit = document.getElementById('formEditInstrumen');
+
+    editButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const id = button.getAttribute('data-id');
+            const nama = button.getAttribute('data-nama');
+            const deskripsi = button.getAttribute('data-deskripsi');
+            const tahun = button.getAttribute('data-tahun');
+
+            document.getElementById('edit_nama').value = nama;
+            document.getElementById('edit_deskripsi').value = deskripsi;
+            document.getElementById('edit_tahun').value = tahun;
+
+            formEdit.action = `/admin/instrumen-tes/${id}`;
+            modalEdit.classList.remove('hidden');
+        });
+    });
+
+    function closeEditModal() {
+        modalEdit.classList.add('hidden');
+    }
+
+    function previewEditGambar(event) {
+        const reader = new FileReader();
+        reader.onload = function () {
+            const preview = document.getElementById('edit_gambar_preview');
+            preview.src = reader.result;
+            preview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
 @endsection

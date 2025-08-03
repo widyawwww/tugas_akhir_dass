@@ -100,7 +100,7 @@ class DaftarPenggunaController extends Controller
             'nama_lengkap'     => ['required', 'string', 'max:255'],
             'email'            => ['nullable', 'email', 'unique:psikiater,email'],
             'spesialisasi'     => ['nullable', 'string'],
-            'nomor_lisensi'    => ['nullable', 'string'],
+            'sipp'             => ['nullable', 'string'],
             'biaya_layanan'    => ['nullable', 'numeric'],
             'lokasi_pelayanan' => ['nullable', 'string'],
             'gambar'           => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
@@ -110,13 +110,15 @@ class DaftarPenggunaController extends Controller
             'nama_lengkap',
             'email',
             'spesialisasi',
-            'nomor_lisensi',
+            'sipp',
             'biaya_layanan',
             'lokasi_pelayanan',
         ]);
 
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('psikiater', 'public');
+            $path = $request->file('gambar')->store('psikiater', 'public');
+            $data['gambar'] = $path;
+            $data['gambar_url'] = asset('storage/' . $path);
         }
 
         Psikiater::create($data);
@@ -124,13 +126,14 @@ class DaftarPenggunaController extends Controller
         return back()->with('success', 'Data psikiater berhasil ditambahkan.');
     }
 
+
     public function updatePsikiater(Request $request, $id)
     {
         $request->validate([
             'nama_lengkap'     => ['required', 'string', 'max:255'],
             'email'            => ['nullable', 'email', 'unique:psikiater,email,' . $id],
             'spesialisasi'     => ['nullable', 'string'],
-            'nomor_lisensi'    => ['nullable', 'string'],
+            'sipp'             => ['nullable', 'string'],
             'biaya_layanan'    => ['nullable', 'numeric'],
             'lokasi_pelayanan' => ['nullable', 'string'],
             'gambar'           => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
@@ -141,7 +144,7 @@ class DaftarPenggunaController extends Controller
             'nama_lengkap',
             'email',
             'spesialisasi',
-            'nomor_lisensi',
+            'sipp',
             'biaya_layanan',
             'lokasi_pelayanan',
         ]));
@@ -151,13 +154,16 @@ class DaftarPenggunaController extends Controller
                 Storage::disk('public')->delete($psikiater->gambar);
             }
 
-            $psikiater->gambar = $request->file('gambar')->store('psikiater', 'public');
+            $path = $request->file('gambar')->store('psikiater', 'public');
+            $psikiater->gambar = $path;
+            $psikiater->gambar_url = asset('storage/' . $path);
         }
 
         $psikiater->save();
 
         return back()->with('success', 'Data psikiater berhasil diperbarui.');
     }
+
 
     public function destroyPsikiater($id)
     {
@@ -186,10 +192,7 @@ class DaftarPenggunaController extends Controller
             'username'         => ['nullable', 'string'],
             'email'            => ['nullable', 'email', 'unique:konselor,email'],
             'password'         => ['required', 'string', 'min:6'],
-            'tanggal_lahir'    => ['nullable', 'date'],
-            'jenis_kelamin'    => ['nullable', 'in:L,P'],
             'spesialisasi'     => ['nullable', 'string'],
-            'nomor_lisensi'    => ['nullable', 'string'],
             'gambar'           => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
         ]);
 
@@ -197,22 +200,22 @@ class DaftarPenggunaController extends Controller
             'nama_lengkap',
             'username',
             'email',
-            'tanggal_lahir',
-            'jenis_kelamin',
             'spesialisasi',
-            'nomor_lisensi',
         ]);
 
         $data['password'] = Hash::make($request->password);
 
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('konselor', 'public');
+            $path = $request->file('gambar')->store('konselor', 'public');
+            $data['gambar'] = $path;
+            $data['gambar_url'] = asset('storage/' . $path);
         }
 
         Konselor::create($data);
 
         return back()->with('success', 'Data konselor berhasil ditambahkan.');
     }
+
 
     // Update data konselor
     public function updateKonselor(Request $request, $id)
@@ -222,10 +225,7 @@ class DaftarPenggunaController extends Controller
             'username'         => ['nullable', 'string'],
             'email'            => ['nullable', 'email', 'unique:konselor,email,' . $id],
             'password'         => ['nullable', 'string', 'min:6'],
-            'tanggal_lahir'    => ['nullable', 'date'],
-            'jenis_kelamin'    => ['nullable', 'in:L,P'],
             'spesialisasi'     => ['nullable', 'string'],
-            'nomor_lisensi'    => ['nullable', 'string'],
             'gambar'           => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
         ]);
 
@@ -235,10 +235,7 @@ class DaftarPenggunaController extends Controller
             'nama_lengkap',
             'username',
             'email',
-            'tanggal_lahir',
-            'jenis_kelamin',
             'spesialisasi',
-            'nomor_lisensi',
         ]));
 
         if ($request->filled('password')) {
@@ -249,13 +246,17 @@ class DaftarPenggunaController extends Controller
             if ($konselor->gambar && Storage::disk('public')->exists($konselor->gambar)) {
                 Storage::disk('public')->delete($konselor->gambar);
             }
-            $konselor->gambar = $request->file('gambar')->store('konselor', 'public');
+
+            $path = $request->file('gambar')->store('konselor', 'public');
+            $konselor->gambar = $path;
+            $konselor->gambar_url = asset('storage/' . $path);
         }
 
         $konselor->save();
 
         return back()->with('success', 'Data konselor berhasil diperbarui.');
     }
+
 
     // Hapus konselor
     public function destroyKonselor($id)
@@ -300,13 +301,16 @@ class DaftarPenggunaController extends Controller
         $data['password'] = Hash::make($request->password);
 
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('pengguna', 'public');
+            $path = $request->file('gambar')->store('pengguna', 'public');
+            $data['gambar'] = $path;
+            $data['gambar_url'] = asset('storage/' . $path);
         }
 
         User::create($data);
 
         return back()->with('success', 'Data pengguna berhasil ditambahkan.');
     }
+
 
     public function updatePengguna(Request $request, $id)
     {
@@ -339,13 +343,16 @@ class DaftarPenggunaController extends Controller
                 Storage::disk('public')->delete($user->gambar);
             }
 
-            $user->gambar = $request->file('gambar')->store('pengguna', 'public');
+            $path = $request->file('gambar')->store('pengguna', 'public');
+            $user->gambar = $path;
+            $user->gambar_url = asset('storage/' . $path);
         }
 
         $user->save();
 
         return back()->with('success', 'Data pengguna berhasil diperbarui.');
     }
+
 
     public function destroyPengguna($id)
     {
@@ -359,5 +366,4 @@ class DaftarPenggunaController extends Controller
 
         return back()->with('success', 'Data pengguna berhasil dihapus.');
     }
-
 }

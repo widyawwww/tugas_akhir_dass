@@ -15,7 +15,7 @@ class PesanKonsultasiPsikiater extends Model
         'status',
     ];
 
-        public function pengguna()
+    public function pengguna()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
@@ -25,6 +25,8 @@ class PesanKonsultasiPsikiater extends Model
         return $this->belongsTo(Psikiater::class, 'psikiater_id');
     }
 
+    // --- PERBAIKAN DI SINI ---
+    // Nama foreign key harus cocok dengan yang ada di $fillable dan migration.
     public function slotJam()
     {
         return $this->belongsTo(SlotKonsultasiPsikiaterJam::class, 'slot_psikiater_jam_id');

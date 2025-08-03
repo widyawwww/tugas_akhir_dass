@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class JawabanPengguna extends Model
 {
     protected $table = 'jawaban_pengguna';
-    protected $fillable = ['hasil_tes_id', 'pertanyaan_id', 'opsi_jawaban_id'];
+    protected $fillable = ['hasil_tes_id', 'pertanyaan_id', 'opsi_jawaban_id', 'opsi_jawaban_pertanyaan_id'];
 
     public function hasilTes()
     {
@@ -22,6 +22,11 @@ class JawabanPengguna extends Model
     public function opsiJawaban()
     {
         return $this->belongsTo(OpsiJawaban::class);
+    }
+
+    public function opsiJawabanPertanyaan()
+    {
+        return $this->belongsTo(OpsiJawabanPertanyaan::class, 'opsi_jawaban_pertanyaan_id');
     }
 }
 

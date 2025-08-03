@@ -9,19 +9,15 @@ class Pertanyaan extends Model
     protected $table = 'pertanyaan';
     protected $fillable = ['instrumen_tes_id', 'teks_pertanyaan', 'urutan', 'subskala_id'];
 
-    public function opsiJawaban()
-    {
-        return $this->hasMany(OpsiJawaban::class);
-    }
-
-    public function instrumenTes()
-    {
-        return $this->belongsTo(InstrumenTes::class);
-    }
-
     public function subskala()
     {
-        return $this->belongsTo(Subskala::class);
+        return $this->belongsTo(Subskala::class, 'subskala_id');
     }
-}
 
+    // App/Models/Pertanyaan.php
+    public function opsiJawabanPertanyaan()
+    {
+        return $this->hasMany(OpsiJawabanPertanyaan::class, 'pertanyaan_id');
+    }
+
+}

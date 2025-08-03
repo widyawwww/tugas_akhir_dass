@@ -15,12 +15,12 @@ class SlotKonsultasiPsikiaterJam extends Model
 
     public function slotKonsultasi()
     {
-        return $this->belongsTo(SlotKonsultasiPsikiater::class);
+        return $this->belongsTo(SlotKonsultasiPsikiater::class, 'slot_konsultasi_psikiater_id');
     }
 
     public function jam()
     {
-        return $this->belongsTo(Jam::class);
+        return $this->belongsTo(Jam::class, 'jam_id');
     }
 
     public function rincian()

@@ -15,16 +15,15 @@ class SlotKonsultasiKonselorJam extends Model
 
     public function slotKonsultasi()
     {
-        return $this->belongsTo(SlotKonsultasiKonselor::class,'slot_konsultasi_konselor_id');
+        return $this->belongsTo(SlotKonsultasiKonselor::class, 'slot_konsultasi_konselor_id');
     }
     public function jam()
     {
-        return $this->belongsTo(\App\Models\Jam::class, 'jam_id');
+        return $this->belongsTo(Jam::class, 'jam_id');
     }
 
     public function rincian()
     {
-        return $this->hasOne(\App\Models\RincianKonsultasiKonselor::class, 'slot_konsultasi_konselor_jam_id');
+        return $this->hasOne(RincianKonsultasiKonselor::class, 'slot_konsultasi_konselor_jam_id');
     }
-
 }

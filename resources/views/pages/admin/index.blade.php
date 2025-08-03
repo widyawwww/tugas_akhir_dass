@@ -11,6 +11,8 @@
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/trix@1.3.1/dist/trix.css">
+    <script src="https://unpkg.com/trix@1.3.1/dist/trix.js"></script>
     <title>Mental Health</title>
 
     <style>

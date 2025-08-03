@@ -14,8 +14,10 @@
                     <textarea name="deskripsi_singkat" class="w-full border rounded px-3 py-2"></textarea>
                 </div>
                 <div>
-                    <label>Deskripsi Lengkap</label>
-                    <textarea name="deskripsi" class="w-full border rounded px-3 py-2"></textarea>
+                    <label for="deskripsi" class="block mb-1">Deskripsi Lengkap</label>
+                    <!-- Hidden input untuk Trix -->
+                    <input id="deskripsi" type="hidden" name="deskripsi">
+                    <trix-editor input="deskripsi" class="trix-content bg-white border border-gray-300 rounded"></trix-editor>
                 </div>
                 <div>
                     <label>Gambar</label>
