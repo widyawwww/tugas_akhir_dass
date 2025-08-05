@@ -6,20 +6,6 @@
             <h3 class="text-lg font-semibold mb-4">Tambah Jam Operasional</h3>
 
             <div>
-                <label class="block mb-1 text-sm font-medium">Hari</label>
-                <select name="hari" class="w-full border p-2 rounded" required>
-                    <option value="" disabled selected>Pilih Hari</option>
-                    <option value="Senin">Senin</option>
-                    <option value="Selasa">Selasa</option>
-                    <option value="Rabu">Rabu</option>
-                    <option value="Kamis">Kamis</option>
-                    <option value="Jumat">Jumat</option>
-                    <option value="Sabtu">Sabtu</option>
-                    <option value="Minggu">Minggu</option>
-                </select>
-            </div>
-
-            <div>
                 <label class="block mb-1 text-sm font-medium">Jam Mulai</label>
                 <input type="time" name="jam_mulai" class="w-full border p-2 rounded" required>
             </div>

@@ -9,12 +9,12 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
-                {{-- Psikiater --}}
+                {{-- Psikolog Klinis --}}
                 <div class="p-4 bg-white rounded-lg shadow-lg">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-lg font-semibold">Psikiater</p>
-                            <p class="text-xl font-semibold">{{ $jumlahPsikiater }}</p>
+                            <p class="text-lg font-semibold">Psikolog Klinis</p>
+                            <p class="text-xl font-semibold">{{ $jumlahPsikologKlinis }}</p>
                         </div>
                         <div class="text-3xl font-semibold text-red-500">
                             <i class="fa-solid fa-user-doctor"></i>

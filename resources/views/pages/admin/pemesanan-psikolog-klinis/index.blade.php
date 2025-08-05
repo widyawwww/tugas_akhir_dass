@@ -27,8 +27,8 @@
                 {{-- Header --}}
                 <div class="bg-white p-6 rounded-2xl shadow-lg flex justify-between items-center">
                     <div>
-                        <h1 class="text-2xl font-bold text-blue-700">Data Pemesanan Psikiater</h1>
-                        <p class="text-gray-500 text-sm">Kelola pemesanan sesi konsultasi pengguna dengan psikiater</p>
+                        <h1 class="text-2xl font-bold text-blue-700">Data Pemesanan Psikolog Klinis</h1>
+                        <p class="text-gray-500 text-sm">Kelola pemesanan sesi konsultasi pengguna dengan Psikolog Klinis</p>
                     </div>
                 </div>
 
@@ -39,7 +39,7 @@
                             <tr>
                                 <th class="px-4 py-3">No</th>
                                 <th class="px-4 py-3">Nama Pengguna</th>
-                                <th class="px-4 py-3">Psikiater</th>
+                                <th class="px-4 py-3">Psikolog Klinis</th>
                                 <th class="px-4 py-3">Tanggal</th>
                                 <th class="px-4 py-3">Jam</th>
                                 <th class="px-4 py-3">Status</th>
@@ -51,7 +51,7 @@
                                 <tr class="border-b hover:bg-gray-50 transition">
                                     <td class="px-4 py-3">{{ $index + 1 }}</td>
                                     <td class="px-4 py-3">{{ $item->pengguna->nama_lengkap ?? '-' }}</td>
-                                    <td class="px-4 py-3">{{ $item->psikiater->nama_lengkap ?? '-' }}</td>
+                                    <td class="px-4 py-3">{{ $item->psikolog_klinis->nama_lengkap ?? '-' }}</td>
                                     <td class="px-4 py-3">
                                         {{ \Carbon\Carbon::parse($item->slotJam->tanggal ?? now())->format('d M Y') }}
                                     </td>
@@ -75,7 +75,7 @@
                                         </span>
                                     </td>
                                     <td class="px-4 py-3 text-center">
-                                        <form action="{{ route('admin.pemesanan-psikiater.updateStatus', $item->id) }}" method="POST">
+                                        <form action="{{ route('admin.pemesanan-psikolog-klinis.updateStatus', $item->id) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
                                             <select name="status" onchange="this.form.submit()"

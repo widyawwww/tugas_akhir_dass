@@ -105,10 +105,10 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.daftar-pengguna.psikiater') }}"
-                            class="flex gap-1 items-center w-full p-2 pl-11 rounded-lg hover:bg-blue-200 hover:text-white {{ request()->routeIs('admin.daftar-pengguna.psikiater') ? 'bg-blue-500 text-white' : '' }}">
+                        <a href="{{ route('admin.daftar-pengguna.psikolog-klinis') }}"
+                            class="flex gap-1 items-center w-full p-2 pl-11 rounded-lg hover:bg-blue-200 hover:text-white {{ request()->routeIs('admin.daftar-pengguna.psikolog-klinis') ? 'bg-blue-500 text-white' : '' }}">
                             <i class="fa-solid fa-user"></i>
-                            <span class="ms-3">Psikiater</span>
+                            <span class="ms-3">Psikolog Klinis</span>
                         </a>
                     </li>
                     <li>
@@ -169,10 +169,10 @@
 
                 <ul id="dropdown-pemesanan" class="py-2 space-y-2">
                     <li>
-                        <a href="{{ route('admin.pemesanan-psikiater.index') }}"
+                        <a href="{{ route('admin.pemesanan-psikolog-klinis.index') }}"
                             class="flex gap-1 items-center w-full p-2 pl-11 rounded-lg hover:bg-blue-200 hover:text-white">
                             <i class="fa-solid fa-user"></i>
-                            <span class="ms-3">Psikiater</span>
+                            <span class="ms-3">Psikolog Klinis</span>
                         </a>
                     </li>
                     <li>
@@ -203,10 +203,10 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.jadwal-psikiater.index') }}"
+                        <a href="{{ route('admin.jadwal-psikolog-klinis.index') }}"
                             class="flex gap-1 items-center w-full p-2 pl-11 rounded-lg hover:bg-blue-200 hover:text-white">
                             <i class="fa-solid fa-user"></i>
-                            <span class="ms-3">Psikiater</span>
+                            <span class="ms-3">Psikolog Klinis</span>
                         </a>
                     </li>
                     <li>

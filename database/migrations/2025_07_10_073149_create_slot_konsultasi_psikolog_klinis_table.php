@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('slot_konsultasi_psikiater', function (Blueprint $table) {
+        Schema::create('slot_konsultasi_psikolog_klinis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('psikiater_id')->constrained('psikiater')->onDelete('cascade');
+            $table->foreignId('psikolog_klinis_id')->constrained('psikolog_klinis')->onDelete('cascade');
             $table->date('tanggal');
             $table->timestamps();
         });
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('slot_konsultasi_psikiater');
+        Schema::dropIfExists('slot_konsultasi_psikolog_klinis');
     }
 };

@@ -1,17 +1,17 @@
 @foreach($jadwal as $item)
-<div id="modalEditJadwalPsikiater-{{ $item->id }}" tabindex="-1"
+<div id="modalEditJadwalPsikologKlinis-{{ $item->id }}" tabindex="-1"
     class="hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full p-4 overflow-y-auto h-full bg-black bg-opacity-50">
     <div class="relative w-full max-w-md bg-white rounded-lg shadow">
-        <form action="{{ route('admin.jadwal-psikiater.update', $item->id) }}" method="POST" class="p-4 space-y-4">
+        <form action="{{ route('admin.jadwal-psikolog-klinis.update', $item->id) }}" method="POST" class="p-4 space-y-4">
             @csrf
             @method('PUT')
-            <h3 class="text-lg font-semibold mb-4">Edit Jadwal Psikiater</h3>
+            <h3 class="text-lg font-semibold mb-4">Edit Jadwal Psikolog Klinis</h3>
 
-            <!-- Psikiater (readonly) -->
+            <!-- Psikolog Klinis (readonly) -->
             <div>
-                <label class="block mb-1 text-sm font-medium">Psikiater</label>
+                <label class="block mb-1 text-sm font-medium">Psikolog Klinis</label>
                 <input type="text" class="w-full border rounded p-2 bg-gray-100"
-                       value="{{ $item->psikiater->nama_lengkap }}" readonly>
+                       value="{{ $item->psikologklinis->nama_lengkap }}" readonly>
             </div>
 
             <!-- Tanggal (readonly) -->
@@ -58,7 +58,7 @@
                 data-target="{{ $item->id }}">+ Tambah Slot</button>
 
             <div class="flex justify-end gap-2">
-                <button type="button" data-modal-hide="modalEditJadwalPsikiater-{{ $item->id }}"
+                <button type="button" data-modal-hide="modalEditJadwalPsikologKlinis-{{ $item->id }}"
                         class="bg-gray-400 text-white px-4 py-2 rounded">Batal</button>
                 <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Update</button>
             </div>

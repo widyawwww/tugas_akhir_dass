@@ -5,50 +5,50 @@ namespace App\Http\Controllers\WEB\Admin;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Psikiater;
+use App\Models\PsikologKlinis;
 use App\Models\Jam;
-use App\Models\SlotKonsultasiPsikiater;
-use App\Models\SlotKonsultasiPsikiaterJam;
-use App\Models\RincianKonsultasiPsikiater;
+use App\Models\SlotKonsultasiPsikologKlinis;
+use App\Models\SlotKonsultasiPsikologKlinisJam;
+use App\Models\RincianKonsultasiPsikologKlinis;
 
-class JadwalPsikiaterController extends Controller
+class JadwalPsikologKlinisController extends Controller
 {
     public function index()
     {
-        $jadwal = SlotKonsultasiPsikiater::with(['psikiater', 'slotJam.jam', 'slotJam.rincian'])->get();
-        $psikiater = Psikiater::all();
+        $jadwal = SlotKonsultasiPsikologKlinis::with(['psikologklinis', 'slotJam.jam', 'slotJam.rincian'])->get();
+        $psikologklinis = PsikologKlinis::all();
         $jam = Jam::all();
 
-        return view('pages.admin.jadwal-psikiater.index', compact('jadwal', 'psikiater', 'jam'));
+        return view('pages.admin.jadwal-psikolog-klinis.index', compact('jadwal', 'psikologklinis', 'jam'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'psikiater_id' => 'required|exists:psikiater,id',
+            'psikolog_klinis_id' => 'required|exists:psikolog_klinis,id',
             'tanggal' => 'required|date',
             'jam_ids' => 'required|array',
         ]);
 
-        $slot = SlotKonsultasiPsikiater::create([
-            'psikiater_id' => $request->psikiater_id,
+        $slot = SlotKonsultasiPsikologKlinis::create([
+            'psikolog_klinis_id' => $request->psikolog_klinis_id,
             'tanggal' => $request->tanggal,
         ]);
 
         foreach ($request->jam_ids as $jamId) {
-            $slotJam = SlotKonsultasiPsikiaterJam::create([
-                'slot_konsultasi_psikiater_id' => $slot->id,
+            $slotJam = SlotKonsultasiPsikologKlinisJam::create([
+                'slot_konsultasi_psikolog_klinis_id' => $slot->id,
                 'jam_id' => $jamId,
             ]);
 
-            RincianKonsultasiPsikiater::create([
-                'slot_konsultasi_psikiater_jam_id' => $slotJam->id,
+            RincianKonsultasiPsikologKlinis::create([
+                'slot_konsultasi_psikolog_klinis_jam_id' => $slotJam->id,
                 'jumlah_slot' => 1,
                 'slot_tersisa' => 1,
             ]);
         }
 
-        return redirect()->back()->with('success', 'Jadwal psikiater berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Jadwal psikolog klinis berhasil ditambahkan');
     }
 
     public function update(Request $request, $id)
@@ -57,7 +57,7 @@ class JadwalPsikiaterController extends Controller
             'jam_ids' => 'required|array',
         ]);
 
-        $slot = SlotKonsultasiPsikiater::findOrFail($id);
+        $slot = SlotKonsultasiPsikologKlinis::findOrFail($id);
 
         // Hapus data sebelumnya
         foreach ($slot->slotJam as $slotJam) {
@@ -67,32 +67,32 @@ class JadwalPsikiaterController extends Controller
 
         // Tambah data baru
         foreach ($request->jam_ids as $jamId) {
-            $slotJam = SlotKonsultasiPsikiaterJam::create([
-                'slot_konsultasi_psikiater_id' => $slot->id,
+            $slotJam = SlotKonsultasiPsikologKlinisJam::create([
+                'slot_konsultasi_psikolog_klinis_id' => $slot->id,
                 'jam_id' => $jamId,
             ]);
 
-            RincianKonsultasiPsikiater::create([
-                'slot_konsultasi_psikiater_jam_id' => $slotJam->id,
+            RincianKonsultasiPsikologKlinis::create([
+                'slot_konsultasi_psikolog_klinis_jam_id' => $slotJam->id,
                 'jumlah_slot' => 1,
                 'slot_tersisa' => 1,
             ]);
         }
 
-        return redirect()->back()->with('success', 'Jadwal psikiater berhasil diperbarui');
+        return redirect()->back()->with('success', 'Jadwal psikolog klinis berhasil diperbarui');
     }
 
     public function destroy($id)
     {
-        $slot = SlotKonsultasiPsikiater::findOrFail($id);
+        $slot = SlotKonsultasiPsikologKlinis::findOrFail($id);
         $slot->delete();
 
-        return redirect()->back()->with('success', 'Jadwal psikiater berhasil dihapus.');
+        return redirect()->back()->with('success', 'Jadwal psikolog klinis berhasil dihapus.');
     }
 
     public function generateJadwalMingguan()
     {
-        $psikiaters = Psikiater::all();
+        $psikologklinis = PsikologKlinis::all();
         $jamList = Jam::all();
 
         // 7 hari ke depan
@@ -109,28 +109,28 @@ class JadwalPsikiaterController extends Controller
                 continue;
             }
 
-            foreach ($psikiaters as $psikiater) {
+            foreach ($psikologkliniss as $psikologklinis) {
                 // Cek apakah jadwal sudah ada
-                $sudahAda = SlotKonsultasiPsikiater::where('psikiater_id', $psikiater->id)
+                $sudahAda = SlotKonsultasiPsikologKlinis::where('psikolog_klinis_id', $psikologklinis->id)
                     ->whereDate('tanggal', $date)
                     ->exists();
 
                 if ($sudahAda) continue;
 
                 // Buat Slot Konsultasi
-                $slot = SlotKonsultasiPsikiater::create([
-                    'psikiater_id' => $psikiater->id,
+                $slot = SlotKonsultasiPsikologKlinis::create([
+                    'psikolog_klinis_id' => $psikologklinis->id,
                     'tanggal' => $date->toDateString(),
                 ]);
 
                 foreach ($jamUntukHariIni as $jam) {
-                    $slotJam = SlotKonsultasiPsikiaterJam::create([
-                        'slot_konsultasi_psikiater_id' => $slot->id,
+                    $slotJam = SlotKonsultasiPsikologKlinisJam::create([
+                        'slot_konsultasi_psikolog_klinis_id' => $slot->id,
                         'jam_id' => $jam->id,
                     ]);
 
-                    RincianKonsultasiPsikiater::create([
-                        'slot_konsultasi_psikiater_jam_id' => $slotJam->id,
+                    RincianKonsultasiPsikologKlinis::create([
+                        'slot_konsultasi_psikolog_klinis_jam_id' => $slotJam->id,
                         'jumlah_slot' => 1,
                         'slot_tersisa' => 1,
                     ]);

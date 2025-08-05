@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Psikiater extends Model
+class PsikologKlinis extends Model
 {
-    protected $table = 'psikiater';
+    protected $table = 'psikolog_klinis';
 
     protected $fillable = [
         'nama_lengkap',
@@ -21,6 +21,6 @@ class Psikiater extends Model
 
     public function slotKonsultasi()
     {
-        return $this->hasMany(SlotKonsultasiPsikiater::class, 'psikiater_id');
+        return $this->hasMany(SlotKonsultasiPsikologKlinis::class, 'psikolog_klinis_id');
     }
 }

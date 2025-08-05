@@ -13,9 +13,9 @@ use App\Http\Controllers\WEB\Admin\InstrumenTesController;
 use App\Http\Controllers\WEB\Admin\DaftarPenggunaController;
 use App\Http\Controllers\WEB\Admin\JadwalKonselorController;
 use App\Http\Controllers\WEB\Admin\InformasiKlinikController;
-use App\Http\Controllers\WEB\Admin\JadwalPsikiaterController;
+use App\Http\Controllers\WEB\Admin\JadwalPsikologKlinisController;
 use App\Http\Controllers\WEB\Admin\PemesananKonselorController;
-use App\Http\Controllers\WEB\Admin\PemesananPsikiaterController;
+use App\Http\Controllers\WEB\Admin\PemesananPsikologKlinisController;
 use App\Http\Controllers\WEB\Admin\PemesananDaftarPenggunaController;
 
 // ----------------------------
@@ -70,12 +70,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth.admin')->group(function
     Route::put('/jadwal-konselor/{id}', [JadwalKonselorController::class, 'update'])->name('jadwal-konselor.update');
     Route::delete('/jadwal-konselor/{id}', [JadwalKonselorController::class, 'destroy'])->name('jadwal-konselor.destroy');
 
-    //Atur Jadwal Psikiater
-    Route::resource('jadwal-psikiater', JadwalPsikiaterController::class)->only([
+    //Atur Jadwal Psikolog Klinis
+    Route::resource('jadwal-psikolog-klinis', JadwalPsikologKlinisController::class)->only([
         'index', 'store', 'update', 'destroy'
     ]);
-    Route::get('/jadwal-psikiater/generate', [JadwalPsikiaterController::class, 'generateJadwalMingguan'])
-    ->name('jadwal-psikiater.generate');
+    Route::get('/jadwal-psikolog-klinis/generate', [JadwalPsikologKlinisController::class, 'generateJadwalMingguan'])
+    ->name('jadwal-psikolog-klinis.generate');
 
     // Instrumen Tes Psikologi
     Route::get('/instrumen-tes', [InstrumenTesController::class, 'index'])->name('instrumen-tes.index');
@@ -117,9 +117,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth.admin')->group(function
     Route::patch('admin/pemesanan-konselor/{id}/status', [PemesananKonselorController::class, 'updateStatus'])->name('pemesanan-konselor.updateStatus');
 
 
-    // Pemesanan Psikiater
-    Route::get('/pemesanan-psikiater', [PemesananPsikiaterController::class, 'index'])->name('pemesanan-psikiater.index');
-    Route::patch('/pemesanan-psikiater/{id}/status', [PemesananPsikiaterController::class, 'updateStatus'])->name('pemesanan-psikiater.updateStatus');
+    // Pemesanan Psikolog Klinis
+    Route::get('/pemesanan-psikolog-klinis', [PemesananPsikologKlinisController::class, 'index'])->name('pemesanan-psikolog-klinis.index');
+    Route::patch('/pemesanan-psikolog-klinis/{id}/status', [PemesananPsikologKlinisController::class, 'updateStatus'])->name('pemesanan-psikolog-klinis.updateStatus');
 
 
     // Daftar Pengguna berdasarkan role
@@ -128,10 +128,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth.admin')->group(function
     Route::put('pengguna/admin/{id}', [DaftarPenggunaController::class, 'updateAdmin'])->name('users.admin.update');
     Route::delete('pengguna/admin/{id}', [DaftarPenggunaController::class, 'destroyAdmin'])->name('users.admin.destroy');
 
-    Route::get('pengguna/psikiater', [DaftarPenggunaController::class, 'psikiater'])->name('daftar-pengguna.psikiater');
-    Route::post('pengguna/psikiater', [DaftarPenggunaController::class, 'storePsikiater'])->name('users.psikiater.store');
-    Route::put('pengguna/psikiater/{id}', [DaftarPenggunaController::class, 'updatePsikiater'])->name('users.psikiater.update');
-    Route::delete('pengguna/psikiater/{id}', [DaftarPenggunaController::class, 'destroyPsikiater'])->name('users.psikiater.destroy');
+    Route::get('pengguna/psikolog-klinis', [DaftarPenggunaController::class, 'psikologKlinis'])->name('daftar-pengguna.psikolog-klinis');
+    Route::post('pengguna/psikolog-klinis', [DaftarPenggunaController::class, 'storePsikologKlinis'])->name('users.psikolog-klinis.store');
+    Route::put('pengguna/psikolog-klinis/{id}', [DaftarPenggunaController::class, 'updatePsikologKlinis'])->name('users.psikolog-klinis.update');
+    Route::delete('pengguna/psikolog-klinis/{id}', [DaftarPenggunaController::class, 'destroyPsikologKlinis'])->name('users.psikolog-klinis.destroy');
 
     Route::get('pengguna/konselor', [DaftarPenggunaController::class, 'konselor'])->name('daftar-pengguna.konselor');
     Route::post('pengguna/konselor', [DaftarPenggunaController::class, 'storeKonselor'])->name('users.konselor.store');

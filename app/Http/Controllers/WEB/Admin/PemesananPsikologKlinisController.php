@@ -4,15 +4,15 @@ namespace App\Http\Controllers\WEB\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\PesanKonsultasiPsikiater;
+use App\Models\PesanKonsultasiPsikologKlinis;
 
-class PemesananPsikiaterController extends Controller
+class PemesananPsikologKlinisController extends Controller
 {
     public function index()
     {
-        $data = PesanKonsultasiPsikiater::with(['pengguna', 'psikiater', 'slotJam.jam'])->get();
+        $data = PesanKonsultasiPsikologKlinis::with(['pengguna', 'psikolog_klinis', 'slotJam.jam'])->get();
 
-        return view('pages.admin.pemesanan-psikiater.index', compact('data'));
+        return view('pages.admin.pemesanan-psikolog-klinis.index', compact('data'));
     }
 
     public function updateStatus(Request $request, $id)
@@ -21,7 +21,7 @@ class PemesananPsikiaterController extends Controller
             'status' => 'required|in:pending,disetujui,ditolak',
         ]);
 
-        $pemesanan = PesanKonsultasiPsikiater::findOrFail($id);
+        $pemesanan = PesanKonsultasiPsikologKlinis::findOrFail($id);
         $pemesanan->status = $request->status;
         $pemesanan->save();
 

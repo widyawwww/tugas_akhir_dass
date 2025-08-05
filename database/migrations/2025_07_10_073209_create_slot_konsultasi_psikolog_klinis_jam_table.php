@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('slot_konsultasi_psikiater_jam', function (Blueprint $table) {
+        Schema::create('slot_konsultasi_psikolog_klinis_jam', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('slot_konsultasi_psikiater_id')
-                ->constrained('slot_konsultasi_psikiater')
+            $table->foreignId('slot_konsultasi_psikolog_klinis_id')
+                ->constrained('slot_konsultasi_psikolog_klinis')
                 ->onDelete('cascade')
                 ->index();
             $table->foreignId('jam_id')->constrained('jam')->onDelete('cascade');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('slot_konsultasi_psikiater_jam');
+        Schema::dropIfExists('slot_konsultasi_psikolog_klinis_jam');
     }
 };

@@ -7,18 +7,6 @@
             <h3 class="text-lg font-semibold mb-4">Edit Jam Operasional</h3>
 
             <div>
-                <label class="block mb-1 text-sm font-medium">Hari</label>
-                <select name="hari" class="w-full border p-2 rounded" required>
-                    @php
-                        $daftarHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
-                    @endphp
-                    @foreach ($daftarHari as $hari)
-                        <option value="{{ $hari }}" {{ $jam->hari === $hari ? 'selected' : '' }}>{{ $hari }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div>
                 <label class="block mb-1 text-sm font-medium">Jam Mulai</label>
                 <input type="time" name="jam_mulai" class="w-full border p-2 rounded" required value="{{ $jam->jam_mulai }}">
             </div>

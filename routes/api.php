@@ -10,12 +10,12 @@ use App\Http\Controllers\Api\ArtikelController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\KonselorController;
 use App\Http\Controllers\Api\InformasiController;
-use App\Http\Controllers\Api\PsikiaterController;
+use App\Http\Controllers\Api\PsikologKlinisController;
 use App\Http\Controllers\Api\TestResultController;
 use App\Http\Controllers\Api\KonselorAuthController;
 use App\Http\Controllers\Api\TestInstrumentController;
 use App\Http\Controllers\Api\BookingKonselorController;
-use App\Http\Controllers\Api\BookingPsikiaterController;
+use App\Http\Controllers\Api\BookingPsikologKlinisController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,9 +45,9 @@ Route::get('/artikel/{artikel}', [ArtikelController::class, 'show']);
 Route::get('/konselor', [KonselorController::class, 'index']);
 Route::get('/konselor/{konselor}/slots', [BookingKonselorController::class, 'getAvailableSlots']);
 
-// Endpoint untuk psikiater
-Route::get('/psikiater', [PsikiaterController::class, 'index']);
-Route::get('/psikiater/{psikiater}/slots', [BookingPsikiaterController::class, 'getAvailableSlots']);
+// Endpoint untuk psikolog klinis
+Route::get('/psikolog-klinis', [PsikologKlinisController::class, 'index']);
+Route::get('/psikolog-klinis/{psikologklinis}/slots', [BookingPsikologKlinisController::class, 'getAvailableSlots']);
 
 // tes instrumen
 Route::get('/tests', [TestInstrumentController::class, 'index']);
@@ -67,8 +67,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // booking konselor
     Route::post('/bookings-konselor', [BookingKonselorController::class, 'createBooking']);
-    // booking psikiater
-    Route::post('/bookings-psikiater', [BookingPsikiaterController::class, 'createBooking']);
+    // booking psikolog klinis
+    Route::post('/bookings-psikolog-klinis', [BookingPsikologKlinisController::class, 'createBooking']);
 
     // tes hasil
     Route::post('/tests/{id}/submit', [TestResultController::class, 'store']);

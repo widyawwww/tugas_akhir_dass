@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pesan_konsultasi_psikiater', function (Blueprint $table) {
+        Schema::create('pesan_konsultasi_psikolog_klinis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id'); // ← foreign ke tabel 'users'
-            $table->unsignedBigInteger('psikiater_id');
-            $table->unsignedBigInteger('slot_psikiater_jam_id'); // ← ubah nama kolom agar lebih pendek
+            $table->unsignedBigInteger('psikolog_klinis_id');
+            $table->unsignedBigInteger('slot_psikolog_klinis_jam_id'); // ← ubah nama kolom agar lebih pendek
             $table->enum('status', ['pending', 'disetujui', 'ditolak', 'selesai'])->default('pending');
             $table->timestamps();
 
@@ -23,11 +23,11 @@ return new class extends Migration
             $table->foreign('user_id', 'fk_psn_user')
                 ->references('id')->on('users')->onDelete('cascade');
 
-            $table->foreign('psikiater_id', 'fk_psn_psikiater')
-                ->references('id')->on('psikiater')->onDelete('cascade');
+            $table->foreign('psikolog_klinis_id', 'fk_psn_psikolog_klinis')
+                ->references('id')->on('psikolog_klinis')->onDelete('cascade');
 
-            $table->foreign('slot_psikiater_jam_id', 'fk_psn_slot_jam')
-                ->references('id')->on('slot_konsultasi_psikiater_jam')->onDelete('cascade');
+            $table->foreign('slot_psikolog_klinis_jam_id', 'fk_psn_slot_jam')
+                ->references('id')->on('slot_konsultasi_psikolog_klinis_jam')->onDelete('cascade');
         });
     }
 
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pesan_konsultasi_psikiater');
+        Schema::dropIfExists('pesan_konsultasi_psikolog_klinis');
     }
 };

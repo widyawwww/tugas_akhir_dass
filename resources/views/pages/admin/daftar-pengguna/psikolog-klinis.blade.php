@@ -35,18 +35,18 @@
         <div class="space-y-4 rounded-lg mt-14">
             {{-- Header --}}
             <div class="p-4 bg-white rounded-lg shadow-lg flex items-center justify-between">
-                <p class="text-lg font-semibold">Daftar Psikiater</p>
+                <p class="text-lg font-semibold">Daftar Psikolog Klinis</p>
                 <button data-modal-toggle="tambah" data-modal-target="tambah"
                     class="bg-blue-500 text-white px-3 py-1 rounded-lg">
                     <i class="fa fa-plus"></i> Tambah
                 </button>
             </div>
 
-            {{-- Modal Tambah Psikiater --}}
+            {{-- Modal Tambah psikolog klinis --}}
             <div id="tambah" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
                 <div class="bg-white rounded-lg w-full max-w-2xl p-6">
-                    <h3 class="text-lg font-semibold mb-4">Tambah Psikiater</h3>
-                    <form method="POST" action="{{ route('admin.users.psikiater.store') }}" enctype="multipart/form-data" class="space-y-4">
+                    <h3 class="text-lg font-semibold mb-4">Tambah Psikolog Klinis</h3>
+                    <form method="POST" action="{{ route('admin.users.psikolog-klinis.store') }}" enctype="multipart/form-data" class="space-y-4">
                         @csrf
                         <input type="text" name="nama_lengkap" class="w-full border px-3 py-2 rounded" placeholder="Nama Lengkap" required>
                         <input type="text" name="spesialisasi" class="w-full border px-3 py-2 rounded" placeholder="Spesialisasi">
@@ -79,43 +79,43 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($psikiaters as $psikiater)
+                        @forelse ($psikologklinis as $psikolog)
                             <tr class="bg-white border-b hover:bg-gray-50">
                                 <td class="px-6 py-4">{{ $loop->iteration }}</td>
-                                <td class="px-6 py-4">{{ $psikiater->nama_lengkap }}</td>
+                                <td class="px-6 py-4">{{ $psikolog->nama_lengkap }}</td>
                                 <td class="px-6 py-4">
-                                    @if ($psikiater->gambar)
-                                        <img src="{{ asset('storage/' . $psikiater->gambar) }}" alt="Foto" class="w-10 h-10 rounded-full object-cover">
+                                    @if ($psikolog->gambar)
+                                        <img src="{{ asset('storage/' . $psikolog->gambar) }}" alt="Foto" class="w-10 h-10 rounded-full object-cover">
                                     @else
                                         <span class="text-gray-400 italic">Tidak ada</span>
                                     @endif
                                 </td>
-                                <td class="px-6 py-4">{{ $psikiater->spesialisasi }}</td>
-                                <td class="px-6 py-4">{{ $psikiater->sipp }}</td>
-                                <td class="px-6 py-4">Rp{{ number_format($psikiater->biaya_layanan, 0, ',', '.') }}</td>
-                                <td class="px-6 py-4">{{ $psikiater->lokasi_pelayanan }}</td>
+                                <td class="px-6 py-4">{{ $psikolog->spesialisasi }}</td>
+                                <td class="px-6 py-4">{{ $psikolog->sipp }}</td>
+                                <td class="px-6 py-4">Rp{{ number_format($psikolog->biaya_layanan, 0, ',', '.') }}</td>
+                                <td class="px-6 py-4">{{ $psikolog->lokasi_pelayanan }}</td>
                                 <td class="px-6 py-4 flex gap-2">
                                     {{-- Tombol Edit --}}
-                                    <button data-modal-toggle="edit-{{ $psikiater->id }}" class="bg-yellow-500 text-white px-2 py-1 rounded">
+                                    <button data-modal-toggle="edit-{{ $psikolog->id }}" class="bg-yellow-500 text-white px-2 py-1 rounded">
                                         <i class="fa fa-pencil"></i>
                                     </button>
 
                                     {{-- Modal Edit --}}
-                                    <div id="edit-{{ $psikiater->id }}" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+                                    <div id="edit-{{ $psikolog->id }}" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
                                         <div class="bg-white rounded-lg w-full max-w-2xl p-6">
-                                            <h3 class="text-lg font-semibold mb-4">Edit Psikiater</h3>
-                                            <form method="POST" action="{{ route('admin.users.psikiater.update', $psikiater->id) }}" enctype="multipart/form-data" class="space-y-4">
+                                            <h3 class="text-lg font-semibold mb-4">Edit Psikolog Klinis</h3>
+                                            <form method="POST" action="{{ route('admin.users.psikolog-klinis.update', $psikolog->id) }}" enctype="multipart/form-data" class="space-y-4">
                                                 @csrf
                                                 @method('PUT')
-                                                <input type="text" name="nama_lengkap" value="{{ $psikiater->nama_lengkap }}" class="w-full border px-3 py-2 rounded">
-                                                <input type="text" name="spesialisasi" value="{{ $psikiater->spesialisasi }}" class="w-full border px-3 py-2 rounded">
-                                                <input type="text" name="nomor_lisensi" value="{{ $psikiater->sipp }}" class="w-full border px-3 py-2 rounded">
-                                                <input type="number" name="biaya_layanan" value="{{ $psikiater->biaya_layanan }}" class="w-full border px-3 py-2 rounded">
-                                                <input type="text" name="lokasi_pelayanan" value="{{ $psikiater->lokasi_pelayanan }}" class="w-full border px-3 py-2 rounded">
+                                                <input type="text" name="nama_lengkap" value="{{ $psikolog->nama_lengkap }}" class="w-full border px-3 py-2 rounded">
+                                                <input type="text" name="spesialisasi" value="{{ $psikolog->spesialisasi }}" class="w-full border px-3 py-2 rounded">
+                                                <input type="text" name="nomor_lisensi" value="{{ $psikolog->sipp }}" class="w-full border px-3 py-2 rounded">
+                                                <input type="number" name="biaya_layanan" value="{{ $psikolog->biaya_layanan }}" class="w-full border px-3 py-2 rounded">
+                                                <input type="text" name="lokasi_pelayanan" value="{{ $psikolog->lokasi_pelayanan }}" class="w-full border px-3 py-2 rounded">
                                                 <input type="file" name="gambar" class="w-full border px-3 py-2 rounded">
 
                                                 <div class="text-end">
-                                                    <button type="button" data-modal-hide="edit-{{ $psikiater->id }}" class="bg-gray-500 text-white px-4 py-2 rounded">Batal</button>
+                                                    <button type="button" data-modal-hide="edit-{{ $psikolog->id }}" class="bg-gray-500 text-white px-4 py-2 rounded">Batal</button>
                                                     <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded">Update</button>
                                                 </div>
                                             </form>
@@ -123,7 +123,7 @@
                                     </div>
 
                                     {{-- Hapus --}}
-                                    <form action="{{ route('admin.users.psikiater.destroy', $psikiater->id) }}" method="POST" class="form-hapus">
+                                    <form action="{{ route('admin.users.psikolog-klinis.destroy', $psikolog->id) }}" method="POST" class="form-hapus">
                                         @csrf
                                         @method('DELETE')
                                         <button class="bg-red-500 text-white px-2 py-1 rounded">
@@ -134,7 +134,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9" class="text-center py-4 text-gray-500">Belum ada data psikiater.</td>
+                                <td colspan="9" class="text-center py-4 text-gray-500">Belum ada data Psikolog Klinis.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -143,7 +143,7 @@
 
             {{-- Pagination --}}
             <div class="mt-4">
-                {{ $psikiaters->links('vendor.pagination.simple-tailwind') }}
+                {{ $psikologklinis->links('vendor.pagination.simple-tailwind') }}
             </div>
         </div>
     </div>

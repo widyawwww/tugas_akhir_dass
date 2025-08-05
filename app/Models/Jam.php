@@ -9,7 +9,6 @@ class Jam extends Model
     protected $table = 'jam';
 
     protected $fillable = [
-        'hari',
         'jam_mulai',
         'jam_selesai',
     ];

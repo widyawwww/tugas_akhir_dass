@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             JamSeeder::class,
             AdminSeeder::class,
             InformasiSeeder::class,
-            PsikiaterSeeder::class,
+            PsikologKlinisSeeder::class,
             KonselorSeeder::class,
         ]);
     }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\WEB\Admin;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Konselor;
-use App\Models\Psikiater;
+use App\Models\PsikologKlinis;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -88,17 +88,17 @@ class DaftarPenggunaController extends Controller
         return back()->with('success', 'Admin berhasil dihapus.');
     }
 
-    public function psikiater()
+    public function psikologklinis()
     {
-        $psikiaters = Psikiater::latest()->paginate(10);
-        return view('pages.admin.daftar-pengguna.psikiater', compact('psikiaters'));
+        $psikologklinis = PsikologKlinis::latest()->paginate(10);
+        return view('pages.admin.daftar-pengguna.psikolog-klinis', compact('psikologklinis'));
     }
 
-    public function storePsikiater(Request $request)
+    public function storePsikologKlinis(Request $request)
     {
         $request->validate([
             'nama_lengkap'     => ['required', 'string', 'max:255'],
-            'email'            => ['nullable', 'email', 'unique:psikiater,email'],
+            'email'            => ['nullable', 'email', 'unique:psikolog_klinis,email'],
             'spesialisasi'     => ['nullable', 'string'],
             'sipp'             => ['nullable', 'string'],
             'biaya_layanan'    => ['nullable', 'numeric'],
@@ -116,22 +116,22 @@ class DaftarPenggunaController extends Controller
         ]);
 
         if ($request->hasFile('gambar')) {
-            $path = $request->file('gambar')->store('psikiater', 'public');
+            $path = $request->file('gambar')->store('psikolog_klinis', 'public');
             $data['gambar'] = $path;
             $data['gambar_url'] = asset('storage/' . $path);
         }
 
-        Psikiater::create($data);
+        PsikologKlinis::create($data);
 
-        return back()->with('success', 'Data psikiater berhasil ditambahkan.');
+        return back()->with('success', 'Data psikolog klinis berhasil ditambahkan.');
     }
 
 
-    public function updatePsikiater(Request $request, $id)
+    public function updatePsikologKlinis(Request $request, $id)
     {
         $request->validate([
             'nama_lengkap'     => ['required', 'string', 'max:255'],
-            'email'            => ['nullable', 'email', 'unique:psikiater,email,' . $id],
+            'email'            => ['nullable', 'email', 'unique:psikolog_klinis,email,' . $id],
             'spesialisasi'     => ['nullable', 'string'],
             'sipp'             => ['nullable', 'string'],
             'biaya_layanan'    => ['nullable', 'numeric'],
@@ -139,8 +139,8 @@ class DaftarPenggunaController extends Controller
             'gambar'           => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
         ]);
 
-        $psikiater = Psikiater::findOrFail($id);
-        $psikiater->fill($request->only([
+        $psikologklinis = PsikologKlinis::findOrFail($id);
+        $psikologklinis->fill($request->only([
             'nama_lengkap',
             'email',
             'spesialisasi',
@@ -150,32 +150,32 @@ class DaftarPenggunaController extends Controller
         ]));
 
         if ($request->hasFile('gambar')) {
-            if ($psikiater->gambar && Storage::disk('public')->exists($psikiater->gambar)) {
-                Storage::disk('public')->delete($psikiater->gambar);
+            if ($psikologklinis->gambar && Storage::disk('public')->exists($psikologklinis->gambar)) {
+                Storage::disk('public')->delete($psikologklinis->gambar);
             }
 
-            $path = $request->file('gambar')->store('psikiater', 'public');
-            $psikiater->gambar = $path;
-            $psikiater->gambar_url = asset('storage/' . $path);
+            $path = $request->file('gambar')->store('psikolog_klinis', 'public');
+            $psikologklinis->gambar = $path;
+            $psikologklinis->gambar_url = asset('storage/' . $path);
         }
 
-        $psikiater->save();
+        $psikologklinis->saver->save();
 
-        return back()->with('success', 'Data psikiater berhasil diperbarui.');
+        return back()->with('success', 'Data psikolog klinis berhasil diperbarui.');
     }
 
 
-    public function destroyPsikiater($id)
+    public function destroyPsikologKlinis($id)
     {
-        $psikiater = Psikiater::findOrFail($id);
+        $psikologklinis = PsikologKlinis::findOrFail($id);
 
-        if ($psikiater->gambar && Storage::disk('public')->exists($psikiater->gambar)) {
-            Storage::disk('public')->delete($psikiater->gambar);
+        if ($psikologklinis->gambar && Storage::disk('public')->exists($psikologklinis->gambar)) {
+            Storage::disk('public')->delete($psikologklinis->gambar);
         }
 
-        $psikiater->delete();
+        $psikologklinis->delete();
 
-        return back()->with('success', 'Data psikiater berhasil dihapus.');
+        return back()->with('success', 'Data psikolog klinis berhasil dihapus.');
     }
 
     public function konselor()

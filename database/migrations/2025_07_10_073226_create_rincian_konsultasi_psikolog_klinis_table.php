@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rincian_konsultasi_psikiater', function (Blueprint $table) {
+        Schema::create('rincian_konsultasi_psikolog_klinis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('slot_konsultasi_psikiater_jam_id');
+            $table->unsignedBigInteger('slot_konsultasi_psikolog_klinis_jam_id');
             $table->integer('jumlah_slot');
             $table->integer('slot_tersisa');
             $table->timestamps();
 
-            $table->foreign('slot_konsultasi_psikiater_jam_id', 'fk_rincian_psikiater_slot')
+            $table->foreign('slot_konsultasi_psikolog_klinis_jam_id', 'fk_rincian_psikolog_klinis_slot')
                 ->references('id')
-                ->on('slot_konsultasi_psikiater_jam')
+                ->on('slot_konsultasi_psikolog_klinis_jam')
                 ->onDelete('cascade');
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rincian_konsultasi_psikiater');
+        Schema::dropIfExists('rincian_konsultasi_psikolog_klinis');
     }
 };

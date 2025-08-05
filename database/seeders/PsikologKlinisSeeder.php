@@ -3,13 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Psikiater;
+use App\Models\PsikologKlinis;
 
-class PsikiaterSeeder extends Seeder
+class PsikologKlinisSeeder extends Seeder
 {
     public function run(): void
     {
-        Psikiater::insert([
+        PsikologKlinis::insert([
             [
                 'nama_lengkap'      => 'Dra. Psi. Yulia Indarsih',
                 'spesialisasi'      => 'Psikolog Klinis',

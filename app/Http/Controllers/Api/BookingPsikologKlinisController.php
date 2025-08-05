@@ -3,24 +3,24 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Psikiater;
-use App\Models\PesanKonsultasiPsikiater;
-use App\Models\RincianKonsultasiPsikiater;
+use App\Models\PsikologKlinis;
+use App\Models\PesanKonsultasiPsikologKlinis;
+use App\Models\RincianKonsultasiPsikologKlinis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
-class BookingPsikiaterController extends Controller
+class BookingPsikologKlinisController extends Controller
 {
     /**
-     * Mengambil semua slot yang tersedia untuk seorang psikiater.
-     * Endpoint: GET /api/psikiater/{psikiater}/slots
+     * Mengambil semua slot yang tersedia untuk seorang psikolog klinis.
+     * Endpoint: GET /api/psikolog-klinis/{psikolog_klinis}/slots
      */
-    public function getAvailableSlots(Psikiater $psikiater)
+    public function getAvailableSlots(PsikologKlinis $psikologklinis)
     {
         // Ambil slot yang tanggalnya hari ini atau setelahnya
-        $slots = $psikiater->slotKonsultasi()
+        $slots = $psikologklinis->slotKonsultasi()
             ->where('tanggal', '>=', now()->format('Y-m-d'))
             ->with(['jamSlots.jam', 'jamSlots.rincian' => function ($query) {
                 // Hanya ambil rincian yang slotnya masih tersisa
@@ -40,18 +40,18 @@ class BookingPsikiaterController extends Controller
         // --- PERBAIKAN DI SINI ---
         // Sesuaikan nama tabel di dalam aturan 'exists'
         $request->validate([
-            'psikiater_id' => 'required|exists:psikiater,id',
-            'slot_psikiater_jam_id' => 'required|exists:slot_konsultasi_psikiater_jam,id',
+            'psikolog_klinis_id' => 'required|exists:psikolog_klinis,id',
+            'slot_psikolog_klinis_jam_id' => 'required|exists:slot_konsultasi_psikolog_klinis_jam,id',
         ]);
 
         $user = Auth::user();
-        $slotJamId = $request->slot_psikiater_jam_id;
+        $slotJamId = $request->slot_psikolog_klinis_jam_id;
 
         // Gunakan transaksi database untuk memastikan keamanan data
         return DB::transaction(function () use ($user, $request, $slotJamId) {
             // Kunci baris rincian slot untuk mencegah race condition
             // Pastikan nama kolom di sini juga benar
-            $rincian = RincianKonsultasiPsikiater::where('slot_konsultasi_psikiater_jam_id', $slotJamId)
+            $rincian = RincianKonsultasiPsikologKlinis::where('slot_konsultasi_psikolog_klinis_jam_id', $slotJamId)
                 ->lockForUpdate()
                 ->first();
 
@@ -67,15 +67,15 @@ class BookingPsikiaterController extends Controller
             $rincian->save();
 
             // Buat data pemesanan baru
-            $booking = PesanKonsultasiPsikiater::create([
+            $booking = PesanKonsultasiPsikologKlinis::create([
                 'user_id' => $user->id,
-                'psikiater_id' => $request->psikiater_id,
-                'slot_psikiater_jam_id' => $slotJamId,
+                'psikolog_klinis_id' => $request->psikolog_klinis_id,
+                'slot_psikolog_klinis_jam_id' => $slotJamId,
                 'status' => 'pending',
             ]);
 
             return response()->json([
-                'message' => 'Booking berhasil dibuat! Menunggu persetujuan psikiater.',
+                'message' => 'Booking berhasil dibuat! Menunggu persetujuan psikolog klinis.',
                 'booking' => $booking,
             ], 201);
         });
